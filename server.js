@@ -1,11 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const logger = require('morgan');
 
 const app = express();
-const Exercise = require('./exerciseModel.js')
+const db = require('./models/')
 
 // Define PORT
 const PORT = process.env.PORT || 3000;
+
+app.use(logger('dev'));
 
 // Express parsing middleware
 app.use(express.urlencoded({ extended: true }));
@@ -23,7 +26,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/dbExample", {
 
 // Post request to the database
 app.post("/submit", ({ body }, res) => {
-  Exercise.create(body)
+  db.Resistance.create(body)
     .then(dbExercise => {
       res.json(dbExercise);
     })
@@ -32,6 +35,7 @@ app.post("/submit", ({ body }, res) => {
     });
 });
 
+// Listen to the PORT
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
 });
