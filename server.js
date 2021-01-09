@@ -2,8 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 
+// Express instance
 const app = express();
-const db = require('./models/')
 
 // Define PORT
 const PORT = process.env.PORT || 3000;
@@ -16,6 +16,10 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
+// Connect routes
+app.use(require("./routes/htmlRoutes.js"));
+app.use(require("./routes/apiRoutes.js"));
+
 // Defining a connection to Mongoose
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/dbExample", {
     useNewUrlParser: true,
@@ -25,15 +29,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/dbExample", {
   });
 
 // Post request to the database
-app.post("/submit", ({ body }, res) => {
-  db.Resistance.create(body)
-    .then(dbExercise => {
-      res.json(dbExercise);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
+
 
 // Listen to the PORT
 app.listen(PORT, () => {
