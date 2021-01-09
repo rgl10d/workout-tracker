@@ -1,8 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const logger = require("morgan");
-const path = require("path");
-
 
 // Express instance
 const app = express();
@@ -23,14 +21,14 @@ require("./routes/htmlRoutes.js")(app);
 require("./routes/apiRoutes.js")(app);
 
 // Defining a connection to Mongoose
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/dbExample", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
   useCreateIndex: true,
 });
 
-// Listen to the PORT
+// Listen to PORT
 app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}!`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
