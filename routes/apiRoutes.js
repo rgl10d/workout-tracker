@@ -10,7 +10,6 @@ module.exports = function (app) {
         },
       },
     ]).then((workouts) => {
-      console.log(workouts);
       res.json(workouts);
     });
   });
@@ -29,7 +28,6 @@ module.exports = function (app) {
       .sort({ _id: -1 })
       .limit(7)
       .then((workouts) => {
-        console.log(workouts);
         res.json(workouts);
       })
       .catch((err) => {
@@ -49,7 +47,7 @@ module.exports = function (app) {
   });
 
   // UPDATE WORKOUTS
-  app.get("/api/workouts/:id", (req, res) => {
+  app.put("/api/workouts/:id", (req, res) => {
     db.Workout.findByIdAndUpdate(
       req.params.id,
       {
@@ -59,7 +57,6 @@ module.exports = function (app) {
         new: true,
       }
     ).then((workouts) => {
-      console.log(workouts);
       res.json(workouts);
     })
     .catch((err) => {
