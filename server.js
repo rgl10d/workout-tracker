@@ -28,6 +28,14 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useCreateIndex: true,
 });
 
+connection.on("connected", () => {
+  console.log("Mongoose connected successfully.");
+});
+
+connection.on("error", (err) => {
+  console.log("Mongoose connection error: " + err);
+});
+
 // Listen to PORT
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
